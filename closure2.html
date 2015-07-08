@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div1{width: 100px;height: 100px;background: #ccc;}
+    </style>
+    <script>
+        //IE下会引发内存泄露
+        //当页面跳转的时候，变量不会释放，一直存放于内存当中，使cpu不断累加，只有关闭浏览器的时候才会释放
+        window.onload=function(){
+            var oDiv=document.getElementById('div1');
+            oDiv.onclick=function(){
+                //函数内外部相互引用
+                alert(this.id);
+            };
+        };
+        window.onunload=function(){
+            oDiv.onclick=null;
+        };
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
